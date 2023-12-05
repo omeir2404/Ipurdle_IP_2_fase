@@ -73,9 +73,15 @@ public class IpurdleTest {
 
 	static void testClue() {
 		System.out.println("Testing Clue class");
+		System.out.println("Testing Clue constructor with LetterStatus[]");
+		System.out.println("testing WordSize()");
 		testWordSize();
+		System.out.println("testing Constructor with orderNumber and wordSize");
+		System.out.println("testing OrderNumber()");
 		testOrderNumber();
+		System.out.println("testing letterStatus()");
 		testElements();
+		System.out.println("testing isMax()");
 		testClueIsMax();
 		System.out.println("-----------------------------------------------");
 	}
@@ -432,15 +438,15 @@ public class IpurdleTest {
 	// 	passOrFail(error);
 	// }
 
-	// private static void expectedObtainedValues(String expected, String obtained) {
-	// 	System.out.println(StringColouring.toColoredString(">>> expected: " + expected + " obtained: " + obtained,StringColouring.RED));
-	// }
+	private static void expectedObtainedValues(String expected, String obtained) {
+		System.out.println(StringColouring.toColoredString(">>> expected: " + expected + " obtained: " + obtained,StringColouring.RED));
+	}
 	
-	// private static void failOnMethod(String s) {
-	// 	System.out.println(StringColouring.toColoredString(">>> failed " + s, StringColouring.RED));
-	// }
+	private static void failOnMethod(String s) {
+		System.out.println(StringColouring.toColoredString(">>> failed " + s, StringColouring.RED));
+	}
 
-	// private static void passOrFail(boolean error) {
-	// 	System.out.println(error ? StringColouring.toColoredString("FAIL", StringColouring.RED) : "PASS");
-	// }
+	private static void passOrFail(boolean error) {
+		System.out.println(error ? StringColouring.toColoredString("FAIL", StringColouring.RED) : "PASS");
+	}
 }

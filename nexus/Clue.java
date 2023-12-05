@@ -2,6 +2,8 @@ public class Clue {
 
     private LetterStatus[] elements;
     private int clue;
+    private int  orderNumber;
+    private int wordSize;
     /**
      * @param elements
      * @requires {@code elements != null}
@@ -12,7 +14,81 @@ public class Clue {
         for( int i = 0; i < elements.length; i++ )
             clue = (clue*10) + elements[i].getValue();
         this.clue = clue;
-        this.elements = elements;
+        copyElements(this.elements , elements);
+        System.out.println("this.elements: " + this.elements);
+    }
+
+
+    void    copyElements(LetterStatus[] arr, LetterStatus[] arr2)
+    {
+        for (int i = 0; i < arr.length; i++)
+            arr2[i] = arr[i];
+        return ;
+    }
+
+    private int nextClue(int clue)
+    {
+        int howManyThree = 0;
+        // int nextclue = 0;
+        if (clue % 10 == 1 || clue % 10 == 2)
+            return (clue + 1);
+        while (clue % 10 == 3)
+        {
+            howManyThree++;
+            clue /= 10;
+        }
+        clue++;
+        for (int i = 0; i < howManyThree; i++)
+            clue = (clue * 10) + 1;
+        return (clue);
+    }
+
+    private int minClue(int wordSize)
+    {
+        int clue = 0;
+        for (int i = 0; i < wordSize; i++)
+            clue = (clue * 10) + LetterStatus.INEXISTENT.getValue();
+        return (clue);
+    }
+
+    public  Clue(int  orderNumber,  int  wordSize)
+    {
+        int temp_clue = minClue(wordSize);
+        this.orderNumber = orderNumber;
+        // System.out.println("orderNumber: " + orderNumber + " wordSize: " + wordSize);
+        for (int i = 0; i < orderNumber; i++)
+            temp_clue = nextClue(temp_clue);
+        this.clue = temp_clue;
+        // System.out.println("clue: " + clue);
+        this.elements = new LetterStatus[wordSize];
+        for (int i = 0; i < wordSize; i++)
+        {
+            // System.out.println("temp_clue: " + temp_clue + " temp_clue % 10: " + temp_clue % 10);
+            switch (temp_clue % 10) {
+                case 1:
+                    this.elements[i] = LetterStatus.INEXISTENT;
+                    temp_clue /= 10;
+                    break;
+                case 2:
+                    this.elements[i] = LetterStatus.WRONG_POS;
+                    temp_clue /= 10;
+                    break;
+                case 3:
+                    this.elements[i] = LetterStatus.CORRECT_POS;
+                    temp_clue /= 10;
+                    break;
+            }
+        }
+    }
+
+    public int orderNumber()
+    {
+        return (this.orderNumber);
+    }
+
+    public LetterStatus[] letterStatus()
+    {
+        return (this.elements);
     }
 
     public int length()
@@ -46,6 +122,18 @@ public class Clue {
         }
         return (sb.toString());
     }
+
+    public boolean isMax()
+    {
+        int temp = this.clue;
+        while (temp > 0)
+        {
+            if (temp % 10 != 3)
+                return (false);
+            temp /= 10;
+        }
+        return (true);
+    }
     public static void main(String[] args)
     {
         // 12332
@@ -53,7 +141,9 @@ public class Clue {
         Clue clue = new Clue(elements);
         System.out.println("Testing toString() wtih clue 12332: "+ clue.toString());
         System.out.println("Testing length() wtih clue 12332: "+ clue.length());
-
+        System.out.println("Testing isMax() wtih clue 12332: "+ clue.isMax());
+        System.out.println("Testing nextClue() wtih clue 12332: "+ clue.nextClue(12332));
+        System.out.println("Testing nextClue() wtih clue 12333: "+ clue.nextClue(12333));
     }
 }
 
