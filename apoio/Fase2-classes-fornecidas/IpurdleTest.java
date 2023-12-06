@@ -193,254 +193,254 @@ public class IpurdleTest {
 	}
 
 
-	// static void testBoard() {
-	// 	System.out.println("Testing Board class");
-	// 	testWordLength();
-	// 	testMaxGuesses();
-	// 	testGuesses();
-	// 	testBoardInsertGuessAndClue();
-	// 	System.out.println("-----------------------------------------------");
-	// }
+	static void testBoard() {
+		System.out.println("Testing Board class");
+		testWordLength();
+		testMaxGuesses();
+		testGuesses();
+		testBoardInsertGuessAndClue();
+		System.out.println("-----------------------------------------------");
+	}
 
-	// static void testMaxGuesses () {
-	// 	String methodName = "Board.maxGuesses()";
-	// 	boolean error = false;
+	static void testMaxGuesses () {
+		String methodName = "Board.maxGuesses()";
+		boolean error = false;
 
-	// 	int maxAttempts = 5;
-	// 	Board board = new Board(5,maxAttempts);
-	// 	int obtained = board.maxGuesses();
-	// 	if (obtained != maxAttempts) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(String.valueOf(maxAttempts), String.valueOf(obtained));
-	// 		error = true;
-	// 	}
-	// 	passOrFail(error);
-	// }
+		int maxAttempts = 5;
+		Board board = new Board(5,maxAttempts);
+		int obtained = board.maxGuesses();
+		if (obtained != maxAttempts) {
+			failOnMethod(methodName);
+			expectedObtainedValues(String.valueOf(maxAttempts), String.valueOf(obtained));
+			error = true;
+		}
+		passOrFail(error);
+	}
 
-	// static void testGuesses () {
-	// 	String methodName = "Board.guesses()";
-	// 	boolean error = false;
+	static void testGuesses () {
+		String methodName = "Board.guesses()";
+		boolean error = false;
 
-	// 	Board board = new Board(5,5);
-	// 	int expected = 0;
-	// 	int obtained = board.guesses();
-	// 	if (obtained != expected) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(String.valueOf(expected), String.valueOf(obtained));
-	// 		error = true;
-	// 	}
+		Board board = new Board(5,5);
+		int expected = 0;
+		int obtained = board.guesses();
+		if (obtained != expected) {
+			failOnMethod(methodName);
+			expectedObtainedValues(String.valueOf(expected), String.valueOf(obtained));
+			error = true;
+		}
 
-	// 	board.insertGuessAndClue("null", new Clue(0, 0));
-	// 	expected = 1;
-	// 	obtained = board.guesses();
-	// 	if (obtained != expected) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(String.valueOf(expected), String.valueOf(obtained));
-	// 		error = true;
-	// 	}
-	// 	passOrFail(error);
-	// }
+		board.insertGuessAndClue("null", new Clue(0, 0));
+		expected = 1;
+		obtained = board.guesses();
+		if (obtained != expected) {
+			failOnMethod(methodName);
+			expectedObtainedValues(String.valueOf(expected), String.valueOf(obtained));
+			error = true;
+		}
+		passOrFail(error);
+	}
 
-	// static void testWordLength () {
-	// 	String methodName = "Board.wordLength()";
-	// 	boolean error = false;
+	static void testWordLength () {
+		String methodName = "Board.wordLength()";
+		boolean error = false;
 
-	// 	int wordSize = 5;
-	// 	Board board = new Board(wordSize,4);
-	// 	int obtained = board.wordLength();
-	// 	if (obtained != wordSize) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(String.valueOf(wordSize), String.valueOf(obtained));
-	// 		error = true;
-	// 	}
-	// 	passOrFail(error);
-	// }
+		int wordSize = 5;
+		Board board = new Board(wordSize,4);
+		int obtained = board.wordLength();
+		if (obtained != wordSize) {
+			failOnMethod(methodName);
+			expectedObtainedValues(String.valueOf(wordSize), String.valueOf(obtained));
+			error = true;
+		}
+		passOrFail(error);
+	}
 
-	// static void testBoardInsertGuessAndClue () {
-	// 	String methodName = "Board.insertGuessAndClue()";
-	// 	boolean error = false;
-	// 	Board board = new Board(5, 6);
+	static void testBoardInsertGuessAndClue () {
+		String methodName = "Board.insertGuessAndClue()";
+		boolean error = false;
+		Board board = new Board(5, 6);
 
-	// 	String guess = "WORD";
-	// 	LetterStatus[] elements = { LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS, LetterStatus.INEXISTENT,
-	// 			LetterStatus.INEXISTENT };
-	// 	Clue clue = new Clue(elements);
-	// 	board.insertGuessAndClue(guess, clue);
-	// 	int expected = 1;
-	// 	int obtained = board.guesses();
-	// 	if (obtained != expected) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(String.valueOf(expected), String.valueOf(obtained));
-	// 		error = true;
-	// 	}
-	// 	passOrFail(error);
-	// }
+		String guess = "WORD";
+		LetterStatus[] elements = { LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS, LetterStatus.INEXISTENT,
+				LetterStatus.INEXISTENT };
+		Clue clue = new Clue(elements);
+		board.insertGuessAndClue(guess, clue);
+		int expected = 1;
+		int obtained = board.guesses();
+		if (obtained != expected) {
+			failOnMethod(methodName);
+			expectedObtainedValues(String.valueOf(expected), String.valueOf(obtained));
+			error = true;
+		}
+		passOrFail(error);
+	}
 
 
-	// static void testIpurdleGame() {
-	// 	System.out.println("Testing IpurdleGame class");
-	// 	testGameWordLength();
-	// 	testGameMaxGuesses();
-	// 	testIsValid();
-	// 	testIsOver();
-	// 	testGameGuesses();
-	// 	testPlayGuess();
-	// 	System.out.println("-----------------------------------------------");
-	// }
+	static void testIpurdleGame() {
+		System.out.println("Testing IpurdleGame class");
+		testGameWordLength();
+		testGameMaxGuesses();
+		testIsValid();
+		testIsOver();
+		testGameGuesses();
+		testPlayGuess();
+		System.out.println("-----------------------------------------------");
+	}
 
-	// static void testPlayGuess () {
-	// 	String methodName = "IpurdleGame.testPlayGuess()";
-	// 	boolean error = false;
-	// 	IpurdleGame game = new IpurdleGame(4,5);
+	static void testPlayGuess () {
+		String methodName = "IpurdleGame.testPlayGuess()";
+		boolean error = false;
+		IpurdleGame game = new IpurdleGame(4,5);
 
-	// 	String guess = "ZZZZ";
-	// 	Clue expectedClue = new Clue(new LetterStatus[] {LetterStatus.INEXISTENT,LetterStatus.INEXISTENT, LetterStatus.INEXISTENT,LetterStatus.INEXISTENT});
-	// 	Clue obtainedClue = game.playGuess(guess);
-	// 	if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
-	// 		error = true;
-	// 	}
+		String guess = "ZZZZ";
+		Clue expectedClue = new Clue(new LetterStatus[] {LetterStatus.INEXISTENT,LetterStatus.INEXISTENT, LetterStatus.INEXISTENT,LetterStatus.INEXISTENT});
+		Clue obtainedClue = game.playGuess(guess);
+		if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
+			failOnMethod(methodName);
+			expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
+			error = true;
+		}
 		
-	// 	IpurdleGame game2 = new IpurdleGame(5,5);
-	// 	guess = "WHILE";
-	// 	expectedClue = new Clue(new LetterStatus[] {LetterStatus.INEXISTENT,LetterStatus.INEXISTENT, LetterStatus.INEXISTENT,LetterStatus.INEXISTENT, LetterStatus.CORRECT_POS});
-	// 	obtainedClue = game2.playGuess(guess);
-	// 	if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
-	// 		error = true;
-	// 	}
+		IpurdleGame game2 = new IpurdleGame(5,5);
+		guess = "WHILE";
+		expectedClue = new Clue(new LetterStatus[] {LetterStatus.INEXISTENT,LetterStatus.INEXISTENT, LetterStatus.INEXISTENT,LetterStatus.INEXISTENT, LetterStatus.CORRECT_POS});
+		obtainedClue = game2.playGuess(guess);
+		if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
+			failOnMethod(methodName);
+			expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
+			error = true;
+		}
 
-	// 	guess = "FIELD";
-	// 	expectedClue = new Clue(new LetterStatus[] {LetterStatus.INEXISTENT,LetterStatus.INEXISTENT, LetterStatus.WRONG_POS,LetterStatus.INEXISTENT, LetterStatus.INEXISTENT});
-	// 	obtainedClue = game2.playGuess(guess);
-	// 	if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
-	// 		error = true;
-	// 	}
+		guess = "FIELD";
+		expectedClue = new Clue(new LetterStatus[] {LetterStatus.INEXISTENT,LetterStatus.INEXISTENT, LetterStatus.WRONG_POS,LetterStatus.INEXISTENT, LetterStatus.INEXISTENT});
+		obtainedClue = game2.playGuess(guess);
+		if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
+			failOnMethod(methodName);
+			expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
+			error = true;
+		}
 
-	// 	guess = "ABOVE";
-	// 	expectedClue = new Clue(new LetterStatus[] {LetterStatus.CORRECT_POS,LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS,LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS});
-	// 	obtainedClue = game2.playGuess(guess);
-	// 	if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
-	// 		error = true;
-	// 	}
+		guess = "ABOVE";
+		expectedClue = new Clue(new LetterStatus[] {LetterStatus.CORRECT_POS,LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS,LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS});
+		obtainedClue = game2.playGuess(guess);
+		if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
+			failOnMethod(methodName);
+			expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
+			error = true;
+		}
 
-	// 	passOrFail(error);
-	// }
+		passOrFail(error);
+	}
 
-	// static void testIsOver () {
-	// 	String methodName = "IpurdleGame.isOver()";
-	// 	boolean error = false;
+	static void testIsOver () {
+		String methodName = "IpurdleGame.isOver()";
+		boolean error = false;
 
-	// 	IpurdleGame game = new IpurdleGame(5,5);
-	// 	if (game.isOver()) {
-	// 		failOnMethod(methodName);
-	// 		error = true;
-	// 	}
+		IpurdleGame game = new IpurdleGame(5,5);
+		if (game.isOver()) {
+			failOnMethod(methodName);
+			error = true;
+		}
 
-	// 	IpurdleGame game2 = new IpurdleGame(5,5);
-	// 	game2.playGuess("WHILE");
-	// 	if (game2.isOver()) {
-	// 		failOnMethod(methodName);
-	// 		error = true;
-	// 	}
+		IpurdleGame game2 = new IpurdleGame(5,5);
+		game2.playGuess("WHILE");
+		if (game2.isOver()) {
+			failOnMethod(methodName);
+			error = true;
+		}
 
-	// 	IpurdleGame game3 = new IpurdleGame(5,1);
-	// 	game3.playGuess("WHILE");
-	// 	if (!game3.isOver()) {
-	// 		failOnMethod(methodName);
-	// 		error = true;
-	// 	}
-	// 	passOrFail(error);
-	// }
+		IpurdleGame game3 = new IpurdleGame(5,1);
+		game3.playGuess("WHILE");
+		if (!game3.isOver()) {
+			failOnMethod(methodName);
+			error = true;
+		}
+		passOrFail(error);
+	}
 
-	// static void testIsValid () {
-	// 	String methodName = "IpurdleGame.isValid()";
-	// 	boolean error = false;
-	// 	IpurdleGame game = new IpurdleGame(5,5);
+	static void testIsValid () {
+		String methodName = "IpurdleGame.isValid()";
+		boolean error = false;
+		IpurdleGame game = new IpurdleGame(5,5);
 
-	// 	String validGuess = "WHILE";
-	// 	if (!game.isValid(validGuess)) {
-	// 		failOnMethod(methodName);
-	// 		error = true;
-	// 	}
+		String validGuess = "WHILE";
+		if (!game.isValid(validGuess)) {
+			failOnMethod(methodName);
+			error = true;
+		}
 
-	// 	String invalidGuess = "SCANNER";
-	// 	if (game.isValid(invalidGuess)) {
-	// 		failOnMethod(methodName);
-	// 		error = true;
-	// 	}
-	// 	passOrFail(error);
-	// }
+		String invalidGuess = "SCANNER";
+		if (game.isValid(invalidGuess)) {
+			failOnMethod(methodName);
+			error = true;
+		}
+		passOrFail(error);
+	}
 	
-	// static void testGameMaxGuesses () {
-	// 	String methodName = "IpurdleGame.maxGuesses()";
-	// 	boolean error = false;
+	static void testGameMaxGuesses () {
+		String methodName = "IpurdleGame.maxGuesses()";
+		boolean error = false;
 
-	// 	int maxAttempts = 5;
-	// 	IpurdleGame game = new IpurdleGame(5,maxAttempts);
-	// 	int obtained = game.maxGuesses();
-	// 	if (obtained != maxAttempts) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(String.valueOf(maxAttempts), String.valueOf(obtained));
-	// 		error = true;
-	// 	}
-	// 	passOrFail(error);
-	// }
+		int maxAttempts = 5;
+		IpurdleGame game = new IpurdleGame(5,maxAttempts);
+		int obtained = game.maxGuesses();
+		if (obtained != maxAttempts) {
+			failOnMethod(methodName);
+			expectedObtainedValues(String.valueOf(maxAttempts), String.valueOf(obtained));
+			error = true;
+		}
+		passOrFail(error);
+	}
 
-	// static void testGameGuesses () {
-	// 	String methodName = "IpurdleGame.guesses()";
-	// 	boolean error = false;
+	static void testGameGuesses () {
+		String methodName = "IpurdleGame.guesses()";
+		boolean error = false;
 
-	// 	IpurdleGame game = new IpurdleGame(5,5);
-	// 	int expected = 0;
-	// 	int obtained = game.guesses();
-	// 	if (obtained != expected) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(String.valueOf(expected), String.valueOf(obtained));
-	// 		error = true;
-	// 	}
+		IpurdleGame game = new IpurdleGame(5,5);
+		int expected = 0;
+		int obtained = game.guesses();
+		if (obtained != expected) {
+			failOnMethod(methodName);
+			expectedObtainedValues(String.valueOf(expected), String.valueOf(obtained));
+			error = true;
+		}
 
-	// 	game.playGuess("JAVA");
-	// 	expected = 1;
-	// 	obtained = game.guesses();
-	// 	if (obtained != expected) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(String.valueOf(expected), String.valueOf(obtained));
-	// 		error = true;
-	// 	}
-	// 	passOrFail(error);
-	// }
+		game.playGuess("JAVA");
+		expected = 1;
+		obtained = game.guesses();
+		if (obtained != expected) {
+			failOnMethod(methodName);
+			expectedObtainedValues(String.valueOf(expected), String.valueOf(obtained));
+			error = true;
+		}
+		passOrFail(error);
+	}
 
-	// static void testGameWordLength () {
-	// 	String methodName = "IpurdleGame.wordLength()";
-	// 	boolean error = false;
+	static void testGameWordLength () {
+		String methodName = "IpurdleGame.wordLength()";
+		boolean error = false;
 
-	// 	int wordSize = 5;
-	// 	IpurdleGame game = new IpurdleGame(wordSize,4);
-	// 	int obtained = game.wordLength();
-	// 	if (obtained != wordSize) {
-	// 		failOnMethod(methodName);
-	// 		expectedObtainedValues(String.valueOf(wordSize), String.valueOf(obtained));
-	// 		error = true;
-	// 	}
-	// 	passOrFail(error);
-	// }
+		int wordSize = 5;
+		IpurdleGame game = new IpurdleGame(wordSize,4);
+		int obtained = game.wordLength();
+		if (obtained != wordSize) {
+			failOnMethod(methodName);
+			expectedObtainedValues(String.valueOf(wordSize), String.valueOf(obtained));
+			error = true;
+		}
+		passOrFail(error);
+	}
 
-	// private static void expectedObtainedValues(String expected, String obtained) {
-	// 	System.out.println(StringColouring.toColoredString(">>> expected: " + expected + " obtained: " + obtained,StringColouring.RED));
-	// }
+	private static void expectedObtainedValues(String expected, String obtained) {
+		System.out.println(StringColouring.toColoredString(">>> expected: " + expected + " obtained: " + obtained,StringColouring.RED));
+	}
 	
-	// private static void failOnMethod(String s) {
-	// 	System.out.println(StringColouring.toColoredString(">>> failed " + s, StringColouring.RED));
-	// }
+	private static void failOnMethod(String s) {
+		System.out.println(StringColouring.toColoredString(">>> failed " + s, StringColouring.RED));
+	}
 
-	// private static void passOrFail(boolean error) {
-	// 	System.out.println(error ? StringColouring.toColoredString("FAIL", StringColouring.RED) : "PASS");
-	// }
+	private static void passOrFail(boolean error) {
+		System.out.println(error ? StringColouring.toColoredString("FAIL", StringColouring.RED) : "PASS");
+	}
 }
