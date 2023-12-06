@@ -73,15 +73,15 @@ public class IpurdleTest {
 
 	static void testClue() {
 		System.out.println("Testing Clue class");
-		System.out.println("Testing Clue constructor with LetterStatus[]");
-		System.out.println("testing WordSize()");
+		//System.out.println("Testing Clue constructor with LetterStatus[]");
+	////	System.out.println("testing WordSize()");
 		testWordSize();
-		System.out.println("testing Constructor with orderNumber and wordSize");
-		System.out.println("testing OrderNumber()");
+	//	System.out.println("testing Constructor with orderNumber and wordSize");
+	//	System.out.println("testing OrderNumber()");
 		testOrderNumber();
-		System.out.println("testing letterStatus()");
+	//	System.out.println("testing letterStatus()");
 		testElements();
-		System.out.println("testing isMax()");
+	//	System.out.println("testing isMax()");
 		testClueIsMax();
 		System.out.println("-----------------------------------------------");
 	}

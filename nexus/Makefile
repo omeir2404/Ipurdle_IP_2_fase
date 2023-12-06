@@ -2,7 +2,7 @@
 SRCS = Ipurdle.java Clue.java Board.java IpurdleGame.java \
 		IpurdleTxt.java LetterStatus.java
 
-COMPILE = javac -g
+COMPILE = javac 
 FLAGS = -cp
 CLASSES = /home/oharoon/Trabalho_1_fase_IP/srcs/nexus
 
@@ -34,7 +34,7 @@ test: all
 	@java IpurdleTest
 
 clean:
-		rm -rf Ipurdle.class
+		rm -rf Ipurdle.class Board.class Clue.class IpurdleGame.class IpurdleTxt.class LetterStatus.class IpurdleTest.class Ipurdle.class
 		@ echo "$(RED)Deleting $(CYAN)Ipurdle.class ✔️"
 		 
 #add animation
