@@ -28,6 +28,16 @@ public class IpurdleGame
 		return this.wordSize;
 	}
 
+	public int guesses()
+	{
+		return this.playedGuesses;
+	}
+
+	public int maxGuesses()
+	{
+		return this.maxGuesses;
+	}
+
 	public boolean isValid(String guess)
 	{
 		if (guess.length() != this.wordSize)
@@ -46,9 +56,10 @@ public class IpurdleGame
 			return true;
 		for (int i = 0; i < this.validWordsStatus.length; i++)
 		{
-			this.board.insertGuessAndClue(this.playedGuesses, new Clue(clueForGuessAndWord(this.validWords[i], this.validWords[i])));
+			if (this.clue.isMax())
+				return true;
 		}
-		return true;
+		return false;
 	}
 
 	/**
@@ -67,7 +78,7 @@ public class IpurdleGame
 		int count = 0;
 		for(int i = 0; i < stop; i++)
 		{
-			if (word.charAt(i) == letter)// sempre que a letra do word de indice i for igual a letra adiciona 1 ao count
+			if (word.charAt(i) == letter)
 				count++;
 		}
 		return (count);
@@ -80,60 +91,140 @@ public class IpurdleGame
 	 * @ensures {@code clue} is a valid clue for {@code guess} when comparing to {@code word}
 	 * @return the clue for {@code guess} when comparing to {@code word}
 	 */
-    public static int clueForGuessAndWord(String guess, String word)
+    public static Clue clueForGuessAndWord(String guess, String word)
 	{
-		int clue = 0;
-		for(int count = 0; count < guess.length(); count++)
+		Clue clue;
+		LetterStatus[] elements = new LetterStatus[guess.length()];
+		// Clue clue;
+
+		for(int count = 0; count < guess.length() - 1; count++)
 		{
-			clue *= 10;//como o clue é um inteiro, para adicionar um digito no final do clue temos de multiplicar por 10
 			if (guess.charAt(count) == word.charAt(count))
-				clue += 3;//se a letra de indice count do guess for igual a letra de indice count do word adiciona 3 ao clue
-			else if (countOccurrences(guess.charAt(count), word, word.length()) > 0)// se a letra de indice count da palavra esta no word
+				elements[count] = LetterStatus.CORRECT_POS;
+			else if (countOccurrences(guess.charAt(count), word, word.length()) > 0)
 			{
-				if (countOccurrences(guess.charAt(count), word, word.length()) == 1) // se a letra de indice count da palavra so aparece uma vez no word
+				if (countOccurrences(guess.charAt(count), word, word.length()) == 1)
 				{
 					if (countOccurrences(guess.charAt(count), guess, count) > 0)
-						clue += 1; // se foi encontrado antes (na posicao certa ou nao) adiciona 1 ao clue
+						elements[count] = LetterStatus.INEXISTENT;
 					else
-						clue += 2; //se for a primeira vez que ocorre adiciona 2 ao clue
+						elements[count] = LetterStatus.WRONG_POS;
 				}
 				else
-					clue += 2;// se houver mais do que uma letra igual no word adiciona 2 ao clue
+					elements[count] = LetterStatus.WRONG_POS;
 			}
 			else
-				clue += 1;// ultimo caso adiciona 1 ao clue
+				elements[count] = LetterStatus.INEXISTENT;
 		}
+		clue = new Clue(elements);
 		return (clue);
 	}
 
-		public Clue playGuess(String guess)
-		{
-			if (this.playedGuesses == this.maxGuesses)
-				return null;
-			if (!isValid(guess))
-				return null;
-			int clue = 0;
-			for (int i = 0; i < this.validWords.length; i++)
-			{
-				if (this.validWords[i].equals(guess))
-				{
-					this.validWordsStatus[i] = false;
-					break;
-				}
-			}
-			for (int i = 0; i < this.validWords.length; i++)
-			{
-				if (this.validWordsStatus[i])
-				{
-					clue = clueForGuessAndWord(guess, this.validWords[i]);
-					this.board.insertGuessAndClue(guess, new Clue(clue));
-					this.playedGuesses++;
-					return new Clue(clue);
-				}
-			}
-			return null;
-		}
+	// public static LetterStatus[] elementsFromIntClue(int clue, int wordSize)
+	// {
+	// 	LetterStatus[] elements = new LetterStatus[wordSize];
+	// 	for (int i = 0; i < wordSize; i++)
+	// 	{
+	// 		switch (clue % 10)
+	// 		{
+	// 			case 1:
+	// 				elements[i] = LetterStatus.INEXISTENT;
+	// 				break;
+	// 			case 2:
+	// 				elements[i] = LetterStatus.WRONG_POS;
+	// 				break;
+	// 			case 3:
+	// 				elements[i] = LetterStatus.CORRECT_POS;
+	// 				break;
+	// 		}
+	// 		clue /= 10;
+	// 	}
+	// 	return (elements);
+	// }
 
+	public static	boolean compareClues(Clue clue1, Clue clue2)
+	{
+		for (int i = 0; i < clue1.length(); i++)
+		{
+			if (clue1.letterStatus()[i] != clue2.letterStatus()[i])
+				return (false);
+		}
+		return (true);
+	}
+
+	public static int howManyWordsWithClue(String[] validWords, Clue clue, String guess)
+	{
+		int count = 0;
+		for(int i = 0; i < validWords.length; i++)
+		{
+			if (compareClues(clueForGuessAndWord(guess, validWords[i]), clue))
+				count++;
+		}
+		return count;
+	}
+
+	public static Clue minClue(int wordSize)
+	{
+		LetterStatus[] minClue = new LetterStatus[wordSize];
+		for (int i = 0; i < wordSize; i++)
+			minClue[i] = LetterStatus.INEXISTENT;
+		return (new Clue(minClue));
+	}
+
+	public static Clue maxClue(int wordSize)
+	{
+		LetterStatus[] maxClue = new LetterStatus[wordSize];
+		for (int i = 0; i < wordSize; i++)
+			maxClue[i] = LetterStatus.CORRECT_POS;
+		return (new Clue(maxClue));
+	}
+
+	public static Clue betterClueForGuess(String[] validWords , String guess)
+	{
+		Clue bestClue = minClue(guess.length());
+		int bestCount = -1;
+		Clue clue = minClue(guess.length());
+		int count = 0;
+
+		// if (validWords.length == 1 && dictionary.isValid(guess))
+		// 	return (maxClue(guess.length()));
+		for (int i = 0; i < validWords.length; i++)
+		{
+			clue = clueForGuessAndWord(guess, validWords[i]);
+			count = howManyWordsWithClue(validWords, clue, guess);
+			if (count > bestCount)
+			{
+				bestCount = count;
+				bestClue = clue;
+			}
+		}
+		return bestClue;
+	}
+
+    // public static int playGuess(DictionaryIP dictionary, String guess){
+    //     int clue =  betterClueForGuess(dictionary, guess);
+	// 	for(int i = 0; i < dictionary.lenght(); i++)
+	// 	{
+	// 		if (clueForGuessAndWord(guess, dictionary.getWord(i)) != clue)
+	// 			dictionary.selectForRemove(i);
+	// 	}
+    //     dictionary.removeSelected();
+    //     return clue;
+    // }
+
+	public Clue playGuess(String guess)
+	{
+		this.guess = guess;
+		Clue clue = betterClueForGuess(validWords, guess);
+		for (int i = 0; i < validWords.length; i++)
+		{
+			if (compareClues(clueForGuessAndWord(guess, validWords[i]), clue))
+				validWordsStatus[i] = false;
+		}
+		this.clue = clue;
+		this.playedGuesses++;
+		return clue;
+	}
 }
 
 

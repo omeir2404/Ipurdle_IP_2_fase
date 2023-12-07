@@ -58,7 +58,7 @@ public class Board
 		for (int i = 0; i < this.currentGuess; i++)
 		{
 			result += "+---------------+\n";
-			result += "| " + this.guesses[i] + " | " + this.clue[i] + " |\n";
+			result += "| " + this.guesses[i] + " | " + this.clue[i].toString() + " |\n";
 		}
 		result += "+---------------+\n";
 		return result;

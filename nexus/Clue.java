@@ -1,8 +1,8 @@
 public class Clue {
 
-	private LetterStatus[] elements;
-	private int  orderNumber;
-	private int wordSize;
+	private LetterStatus[]	elements;
+	private int 			orderNumber;
+	private int 			wordSize;
 		/**
 		 * @param elements
 		 * @requires {@code elements != null}
@@ -15,40 +15,6 @@ public class Clue {
 			this.wordSize = elements.length;
 		}
 
-
-		public static int minClue(int wordSize)
-		{
-			int min = 0;
-			for (int i = 0; i < wordSize; i++)
-				min = (min * 10) + 1;
-			return (min);
-		}
-
-/*		private static int nextClue(int clue)
-		{
-			int howManyThree = 0;
-			// int nextclue = 0;
-			if (clue % 10 == 1 || clue % 10 == 2)
-				return (clue + 1);
-			while (clue % 10 == 3)
-			{
-				howManyThree++;
-				clue /= 10;
-			}
-			clue++;
-			clue *= Math.pow(10, howManyThree);
-			clue += minClue(howManyThree);
-			return (clue);
-		}
-
-		int clueFromOrderNumber(int orderNumber, int wordSize)
-		{
-			int count = minClue(wordSize);
-			for (int i = 0; i < orderNumber; i++)
-				count = nextClue(count);
-			return (count);
-		}
- */
 		public Clue(int orderNumber, int wordSize)
 		{
 			this.orderNumber = orderNumber;
@@ -59,12 +25,12 @@ public class Clue {
 
 			for (wordSize--; wordSize >= 0; wordSize--)
 			{
-				System.out.println("|orderNumber = " + orderNumber + "| (orderNumber % 3) = " + (orderNumber % 3) + "| (orderNumber % 3 + 1) == clue ==" + ((orderNumber % 3) + 1));
+				// System.out.println("|orderNumber = " + orderNumber + "| (orderNumber % 3) = " + (orderNumber % 3) + "| (orderNumber % 3 + 1) == clue ==" + ((orderNumber % 3) + 1));
 				this.elements[wordSize] = LetterStatus.values()[orderNumber % 3];
 				orderNumber /= 3;
 			}
-			showElements();
-			showElementsAsClue();
+			// showElements();
+			// showElementsAsClue();b
 		}
 
 	public void showElements()

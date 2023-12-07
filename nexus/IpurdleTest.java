@@ -18,7 +18,6 @@ public class IpurdleTest {
 		testLetterStatus();
 		testClue();
 		testBoard();
-
 		testIpurdleGame();
 
 	}
