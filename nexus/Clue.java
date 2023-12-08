@@ -10,6 +10,7 @@ public class Clue {
 		public Clue(LetterStatus[] elements)
 		{
 			this.elements = new LetterStatus[elements.length];
+			// System.out.println("elements.length = " + elements.length);
 			for( int i = 0; i < elements.length; i++ )
 				this.elements[i] = elements[i];
 			this.wordSize = elements.length;
@@ -21,7 +22,7 @@ public class Clue {
 			this.wordSize = wordSize;
 			this.elements = new LetterStatus[wordSize];
 			orderNumber--;
-			System.out.println("wordSize = " + wordSize + " orderNumber = " + orderNumber);
+			// System.out.println("wordSize = " + wordSize + " orderNumber = " + orderNumber);
 
 			for (wordSize--; wordSize >= 0; wordSize--)
 			{
@@ -41,7 +42,7 @@ public class Clue {
 
 	public void showElementsAsClue()
 	{
-		for (int i = 0; i < elements.length; i++)
+		for (int i = 0; i < elements.length ; i++)
 		{
 			switch (elements[i]) {
 				case CORRECT_POS:
@@ -78,6 +79,7 @@ public class Clue {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < elements.length; i++)
 		{
+			// System.out.println(elements[i]);
 			switch (elements[i]) {
 				case CORRECT_POS:
 					sb.append("*"); 
@@ -90,14 +92,15 @@ public class Clue {
 					break;
 			}
 		}
+		// System.out.println(sb.toString());
 		return (sb.toString());
 	}
 
 	public boolean isMax()
 	{
-		for (int i = 0; i < elements.length; i++)
+		for (int i = 0; i < this.elements.length; i++)
 		{
-			if (elements[i] == LetterStatus.INEXISTENT || elements[i] == LetterStatus.WRONG_POS)
+			if (this.elements[i] == LetterStatus.INEXISTENT || this.elements[i] == LetterStatus.WRONG_POS)
 				return (false);
 		}
 		return (true);

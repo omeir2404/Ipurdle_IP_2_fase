@@ -5,7 +5,7 @@ public class IpurdleGame
 	private int wordSize;
 	private int maxGuesses;
 	private int playedGuesses = 0;
-	private Clue clue;
+	public Clue clue;
 	private Board board;
 	private String guess;
 
@@ -54,10 +54,10 @@ public class IpurdleGame
 	{
 		if (this.playedGuesses == this.maxGuesses)
 			return true;
-		for (int i = 0; i < this.validWordsStatus.length; i++)
-		{
+		if (this.clue != null) {
+			// System.out.println("is max " + this.clue.isMax());
 			if (this.clue.isMax())
-				return true;
+			    return true;
 		}
 		return false;
 	}
@@ -78,6 +78,7 @@ public class IpurdleGame
 		int count = 0;
 		for(int i = 0; i < stop; i++)
 		{
+			// System.out.println("word" + word +"word.charAt(i) = " + word.charAt(i) + "| i: " + i);
 			if (word.charAt(i) == letter)
 				count++;
 		}
@@ -91,19 +92,18 @@ public class IpurdleGame
 	 * @ensures {@code clue} is a valid clue for {@code guess} when comparing to {@code word}
 	 * @return the clue for {@code guess} when comparing to {@code word}
 	 */
-    public static Clue clueForGuessAndWord(String guess, String word)
+	public Clue clueForGuessAndWord(String guess, String word)
 	{
 		Clue clue;
 		LetterStatus[] elements = new LetterStatus[guess.length()];
-		// Clue clue;
-
-		for(int count = 0; count < guess.length() - 1; count++)
+	
+		for(int count = 0; count < this.wordSize; count++)
 		{
 			if (guess.charAt(count) == word.charAt(count))
 				elements[count] = LetterStatus.CORRECT_POS;
-			else if (countOccurrences(guess.charAt(count), word, word.length()) > 0)
+			else if (countOccurrences(guess.charAt(count), word, this.wordSize) > 0)
 			{
-				if (countOccurrences(guess.charAt(count), word, word.length()) == 1)
+				if (countOccurrences(guess.charAt(count), word, this.wordSize) == 1)
 				{
 					if (countOccurrences(guess.charAt(count), guess, count) > 0)
 						elements[count] = LetterStatus.INEXISTENT;
@@ -111,13 +111,16 @@ public class IpurdleGame
 						elements[count] = LetterStatus.WRONG_POS;
 				}
 				else
+				{
 					elements[count] = LetterStatus.WRONG_POS;
+				}
 			}
 			else
-				elements[count] = LetterStatus.INEXISTENT;
+{			System.out.println("countOccurrences(guess.charAt(count), word, this.wordSize) = " + countOccurrences(guess.charAt(count), word, this.wordSize));
+				elements[count] = LetterStatus.INEXISTENT;}
 		}
 		clue = new Clue(elements);
-		return (clue);
+		return clue;
 	}
 
 	// public static LetterStatus[] elementsFromIntClue(int clue, int wordSize)
@@ -142,7 +145,7 @@ public class IpurdleGame
 	// 	return (elements);
 	// }
 
-	public static	boolean compareClues(Clue clue1, Clue clue2)
+	public	boolean compareClues(Clue clue1, Clue clue2)
 	{
 		for (int i = 0; i < clue1.length(); i++)
 		{
@@ -152,26 +155,30 @@ public class IpurdleGame
 		return (true);
 	}
 
-	public static int howManyWordsWithClue(String[] validWords, Clue clue, String guess)
+	public int howManyWordsWithClue(String[] validWords, Clue clue, String guess)
 	{
 		int count = 0;
 		for(int i = 0; i < validWords.length; i++)
 		{
-			if (compareClues(clueForGuessAndWord(guess, validWords[i]), clue))
-				count++;
+			if (validWords[i].length() == guess.length())
+			{
+				if (compareClues(clueForGuessAndWord(guess, validWords[i]), clue))
+					count++;
+			}
 		}
 		return count;
 	}
 
-	public static Clue minClue(int wordSize)
+	public Clue minClue(int wordSize)
 	{
 		LetterStatus[] minClue = new LetterStatus[wordSize];
+		// System.out.println("minClue wordSize = " + wordSize);
 		for (int i = 0; i < wordSize; i++)
 			minClue[i] = LetterStatus.INEXISTENT;
 		return (new Clue(minClue));
 	}
 
-	public static Clue maxClue(int wordSize)
+	public Clue maxClue(int wordSize)
 	{
 		LetterStatus[] maxClue = new LetterStatus[wordSize];
 		for (int i = 0; i < wordSize; i++)
@@ -179,23 +186,46 @@ public class IpurdleGame
 		return (new Clue(maxClue));
 	}
 
-	public static Clue betterClueForGuess(String[] validWords , String guess)
+	public boolean oneValidWord(String[] validWords, boolean[] validWordsStatus , String guess)
+	{
+		int count = 0;
+		boolean isGuess = false;
+		for (int i = 0; i < validWords.length; i++)
+		{
+			if (validWordsStatus[i])
+			{
+				if (validWords[i].equals(guess))
+					isGuess = true;
+				count++;
+			}
+		}
+		return (count == 1 && isGuess == true);
+	}
+
+	public Clue betterClueForGuess(String[] validWords , String guess)
 	{
 		Clue bestClue = minClue(guess.length());
 		int bestCount = -1;
 		Clue clue = minClue(guess.length());
 		int count = 0;
 
-		// if (validWords.length == 1 && dictionary.isValid(guess))
-		// 	return (maxClue(guess.length()));
+
+		if (oneValidWord(validWords, validWordsStatus, guess))
+		{
+			System.out.println("IM THE MAXXXXX");
+			return (maxClue(guess.length()));
+		}
 		for (int i = 0; i < validWords.length; i++)
 		{
-			clue = clueForGuessAndWord(guess, validWords[i]);
-			count = howManyWordsWithClue(validWords, clue, guess);
-			if (count > bestCount)
+			if (validWords[i].length() == guess.length())
 			{
-				bestCount = count;
-				bestClue = clue;
+				clue = clueForGuessAndWord(guess, validWords[i]);
+				count = howManyWordsWithClue(validWords, clue, guess);
+				if (count > bestCount)
+				{
+					bestCount = count;
+					bestClue = clue;
+				}
 			}
 		}
 		return bestClue;
@@ -216,14 +246,30 @@ public class IpurdleGame
 	{
 		this.guess = guess;
 		Clue clue = betterClueForGuess(validWords, guess);
-		for (int i = 0; i < validWords.length; i++)
+		for (int i = 0; i < validWords.length ; i++)
 		{
-			if (compareClues(clueForGuessAndWord(guess, validWords[i]), clue))
-				validWordsStatus[i] = false;
+			if (validWords[i].length() == guess.length())
+			{
+				if (compareClues(clueForGuessAndWord(guess, validWords[i]), clue))
+					validWordsStatus[i] = false;
+			}
 		}
 		this.clue = clue;
+		this.clue.length();
+		// System.out.println();
+		// for (LetterStatus element : this.clue.letterStatus()) {
+		// 	if (element != null) {
+		// 		System.out.println(element);
+		// 	} else {
+		// 		System.out.println("Clue is null");
+		// 	}
+		// }
+		// this.clue.showElements();
+		// this.clue.showElementsAsClue();
+		// System.out.println("clue = " + clue.toString());
 		this.playedGuesses++;
-		return clue;
+		// System.out.println(this.clue.toString());
+		return this.clue;
 	}
 }
 
