@@ -15,9 +15,9 @@ public class IpurdleTest {
 
 	public static void main(String[] args) {
 		System.out.println("Testing Ipurdle classes \n");
-		// testLetterStatus();
-		// testClue();
-		// testBoard();
+		testLetterStatus();
+		testClue();
+		testBoard();
 		testIpurdleGame();
 
 	}
@@ -117,7 +117,6 @@ public class IpurdleTest {
 		boolean error = elements1.length != elements2.length;
 		int i =  0;
 		while (!error && i < elements1.length){
-			// System.out.println(elements1[i] + " " + elements2[i]);
 			error = elements1[i] != elements2[i];
 			i++;
 		}
@@ -280,11 +279,11 @@ public class IpurdleTest {
 
 	static void testIpurdleGame() {
 		System.out.println("Testing IpurdleGame class");
-		// testGameWordLength();
-		// testGameMaxGuesses();
-		// testIsValid();
-		// testIsOver();
-		// testGameGuesses();
+		testGameWordLength();
+		testGameMaxGuesses();
+		testIsValid();
+		testIsOver();
+		testGameGuesses();
 		testPlayGuess();
 		System.out.println("-----------------------------------------------");
 	}
@@ -317,7 +316,7 @@ public class IpurdleTest {
 		guess = "FIELD";
 		expectedClue = new Clue(new LetterStatus[] {LetterStatus.INEXISTENT,LetterStatus.INEXISTENT, LetterStatus.WRONG_POS,LetterStatus.INEXISTENT, LetterStatus.INEXISTENT});
 		obtainedClue = game2.playGuess(guess);
-		System.out.println("expected: " + expectedClue.toString() + " obtained: " + obtainedClue.toString() + expectedClue.toString().length() +  obtainedClue.toString().length());
+		// System.out.println("expected: " + expectedClue.toString() + " obtained: " + obtainedClue.toString() + expectedClue.toString().length() +  obtainedClue.toString().length());
 
 		if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
 			failOnMethod(methodName);
@@ -325,16 +324,16 @@ public class IpurdleTest {
 			error = true;
 		}
 
-		// guess = "ABOVE";
-		// expectedClue = new Clue(new LetterStatus[] {LetterStatus.CORRECT_POS,LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS,LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS});
-		// obtainedClue = game2.playGuess(guess);
-		// // System.out.println("expected: " + expectedClue.toString() + " obtained: " + obtainedClue.toString() + expectedClue.toString().length() +  obtainedClue.toString().length());
+		guess = "ABOVE";
+		expectedClue = new Clue(new LetterStatus[] {LetterStatus.CORRECT_POS,LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS,LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS});
+		obtainedClue = game2.playGuess(guess);
+		// System.out.println("expected: " + expectedClue.toString() + " obtained: " + obtainedClue.toString() + expectedClue.toString().length() +  obtainedClue.toString().length());
 
-		// if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
-		// 	failOnMethod(methodName);
-		// 	expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
-		// 	error = true;
-		// }
+		if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
+			failOnMethod(methodName);
+			expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
+			error = true;
+		}
 
 		passOrFail(error);
 	}
@@ -403,7 +402,7 @@ public class IpurdleTest {
 		String methodName = "IpurdleGame.guesses()";
 		boolean error = false;
 
-		IpurdleGame game = new IpurdleGame(5,5);
+		IpurdleGame game = new IpurdleGame(4,5);
 		int expected = 0;
 		int obtained = game.guesses();
 		if (obtained != expected) {

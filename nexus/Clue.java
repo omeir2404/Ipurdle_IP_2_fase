@@ -1,7 +1,7 @@
 public class Clue {
 
 	private LetterStatus[]	elements;
-	private int 			orderNumber;
+	public int 				orderNumber;
 	private int 			wordSize;
 		/**
 		 * @param elements
@@ -9,11 +9,20 @@ public class Clue {
 		 */
 		public Clue(LetterStatus[] elements)
 		{
+			// int count = elements.length;
+			int orderNumber = 0;
 			this.elements = new LetterStatus[elements.length];
-			// System.out.println("elements.length = " + elements.length);
+			this.wordSize = elements.length;
+			for (int i = 0; i < elements.length; i++)
+			{
+				if (elements[i] == LetterStatus.CORRECT_POS)
+					orderNumber += (Math.pow(3, wordSize - i));
+				else if (elements[i] == LetterStatus.WRONG_POS)
+					orderNumber += (2 * Math.pow(3, wordSize - i));
+			}
+			this.orderNumber = orderNumber + 1;
 			for( int i = 0; i < elements.length; i++ )
 				this.elements[i] = elements[i];
-			this.wordSize = elements.length;
 		}
 
 		public Clue(int orderNumber, int wordSize)
@@ -22,22 +31,18 @@ public class Clue {
 			this.wordSize = wordSize;
 			this.elements = new LetterStatus[wordSize];
 			orderNumber--;
-			// System.out.println("wordSize = " + wordSize + " orderNumber = " + orderNumber);
-
 			for (wordSize--; wordSize >= 0; wordSize--)
 			{
-				// System.out.println("|orderNumber = " + orderNumber + "| (orderNumber % 3) = " + (orderNumber % 3) + "| (orderNumber % 3 + 1) == clue ==" + ((orderNumber % 3) + 1));
 				this.elements[wordSize] = LetterStatus.values()[orderNumber % 3];
 				orderNumber /= 3;
 			}
-			// showElements();
-			// showElementsAsClue();b
 		}
 
 	public void showElements()
 	{
 		for (int i = 0; i < elements.length; i++)
-			System.out.println(elements[i]);
+			System.out.print(elements[i] + "  | ");
+		System.out.println();
 	}
 
 	public void showElementsAsClue()
@@ -79,16 +84,15 @@ public class Clue {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < elements.length; i++)
 		{
-			// System.out.println(elements[i]);
 			switch (elements[i]) {
 				case CORRECT_POS:
-					sb.append("*"); 
+					sb.append(StringColouring.toColoredString("*", StringColouring.GREEN)); 
 					break;
 				case WRONG_POS:
-					sb.append("o");
+					sb.append(StringColouring.toColoredString("o", StringColouring.YELLOW)); 
 					break;
 				case INEXISTENT:
-					sb.append("_");
+					sb.append(StringColouring.toColoredString("_", StringColouring.RED)); 
 					break;
 			}
 		}

@@ -1,5 +1,5 @@
 
-SRCS = Ipurdle.java Clue.java Board.java IpurdleGame.java \
+SRCS = Clue.java Board.java IpurdleGame.java \
 		IpurdleTxt.java LetterStatus.java
 
 COMPILE = javac 
@@ -19,7 +19,7 @@ all:
 		@echo "$(BLUE)Ipurdle created[0m ✔️"
 
 run: all
-	@java Ipurdle
+	@java IpurdleTxt
 	
 clue: 
 	$(COMPILE) Clue.java
@@ -28,6 +28,12 @@ clue:
 	@echo "$(GREEN)now running (verify theres main) $(CLR_RMV)"
 	java Clue
 
+game: 
+	$(COMPILE) IpurdleGame.java
+	@echo "$(YELLOW)$(COMPILE) ${CLR_RMV}of ${RED}Clue ${CLR_RMV}..."
+	@echo "$(BLUE)Clue.class created[0m ✔️"
+	@echo "$(GREEN)now running (verify theres main) $(CLR_RMV)"
+	java IpurdleGame
 
 test: all
 	javac IpurdleTest.java
