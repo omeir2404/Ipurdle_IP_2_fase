@@ -296,7 +296,6 @@ public class IpurdleTest {
 		String guess = "ZZZZ";
 		Clue expectedClue = new Clue(new LetterStatus[] {LetterStatus.INEXISTENT,LetterStatus.INEXISTENT, LetterStatus.INEXISTENT,LetterStatus.INEXISTENT});
 		Clue obtainedClue = game.playGuess(guess);
-		// System.out.println("expected: " + expectedClue.toString() + " obtained: " + obtainedClue.toString() + expectedClue.toString().length() +  obtainedClue.toString().length());
 		if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
 			failOnMethod(methodName);
 			expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
@@ -316,8 +315,6 @@ public class IpurdleTest {
 		guess = "FIELD";
 		expectedClue = new Clue(new LetterStatus[] {LetterStatus.INEXISTENT,LetterStatus.INEXISTENT, LetterStatus.WRONG_POS,LetterStatus.INEXISTENT, LetterStatus.INEXISTENT});
 		obtainedClue = game2.playGuess(guess);
-		// System.out.println("expected: " + expectedClue.toString() + " obtained: " + obtainedClue.toString() + expectedClue.toString().length() +  obtainedClue.toString().length());
-
 		if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
 			failOnMethod(methodName);
 			expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
@@ -327,8 +324,6 @@ public class IpurdleTest {
 		guess = "ABOVE";
 		expectedClue = new Clue(new LetterStatus[] {LetterStatus.CORRECT_POS,LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS,LetterStatus.CORRECT_POS, LetterStatus.CORRECT_POS});
 		obtainedClue = game2.playGuess(guess);
-		// System.out.println("expected: " + expectedClue.toString() + " obtained: " + obtainedClue.toString() + expectedClue.toString().length() +  obtainedClue.toString().length());
-
 		if (!equalsElements(expectedClue.letterStatus(),obtainedClue.letterStatus())) {
 			failOnMethod(methodName);
 			expectedObtainedValues(expectedClue.toString(), obtainedClue.toString());
@@ -402,7 +397,7 @@ public class IpurdleTest {
 		String methodName = "IpurdleGame.guesses()";
 		boolean error = false;
 
-		IpurdleGame game = new IpurdleGame(4,5);
+		IpurdleGame game = new IpurdleGame(5,5);
 		int expected = 0;
 		int obtained = game.guesses();
 		if (obtained != expected) {
