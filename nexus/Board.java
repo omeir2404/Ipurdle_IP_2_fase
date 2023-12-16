@@ -1,22 +1,33 @@
+/**
+ * Represents the state of the board for the game of Ipurdle.
+ * 
+ * @authors
+ *   Name: Omeir Haroon, Student Number: 61810
+ *   Name: Matilde Brandão, Student Number: 61814
+ */
+
+
 public class Board
 {
-	private int wordSize;
-	private int maxGuesses;
-	private int currentGuess;
-	private String guesses[];
-	private Clue[] clue;
-
+	int wordSize;
+	int maxGuesses;
+	int currentGuess;
+	String[] guesses;
+	Clue[] clue;
 	/**
+	 * Creates a board for the game of Ipurdle with the provided initial state (empty).
 	 * 
 	 * @param wordSize
+	 *   The size of the words that can be stored on the board.
 	 * @param maxGuesses
-	 * @requires wordSize >= 1 
-	 * @requires maxGuesses >= 1
-	 * 
+	 *   The maximum number of guesses.
+	 * @requires
+	 *   wordSize >= 1
+	 * @requires
+	 *   maxGuesses >= 1
 	 */
 	public Board(int wordSize, int maxGuesses)
 	{
-// cria um tabuleiro para o jogo de Ipurdle com os dados fornecidos no estado inicial (vazio)
 		this.wordSize = wordSize;
 		this.maxGuesses = maxGuesses;
 		this.currentGuess = 0;
@@ -24,36 +35,62 @@ public class Board
 		this.clue = new Clue[maxGuesses];
 	}
 
+	/**
+	 * Returns the size of the words that can be stored on the board.
+	 * 
+	 * @return
+	 *   The size of the words.
+	 */
 	public int wordLength()
 	{
-// permite saber o tamanho das palavras que podem ser guardadas no tabuleiro
 		return this.wordSize;
-	
 	}
 
+	/**
+	 * Returns the maximum number of guesses.
+	 * 
+	 * @return
+	 *   The maximum number of guesses.
+	 */
 	public int maxGuesses()
 	{
-// permite saber o número máximo de tentativas
 		return this.maxGuesses;
 	}
 
+	/**
+	 * Returns the number of guesses that have been made.
+	 * 
+	 * @return
+	 *   The number of guesses.
+	 */
 	public int guesses()
 	{
-// permite saber quantas já foram realizadas (que variam entre 0 e maxGuesses())
 		return this.currentGuess;
 	}
 
+	/**
+	 * Inserts the provided guess and clue, assuming that guess.length() == clue.length() == wordLength() and guesses() < maxGuesses().
+	 * 
+	 * @param guess
+	 *   The guess to be inserted.
+	 * @param clue
+	 *   The clue to be inserted.
+	 */
 	public void insertGuessAndClue(String guess, Clue clue)
 	{
-// regista palavra e pista fornecidas, assumindo que guess.length()==clue.length()==wordLength() e guesses()< maxGuesses()
-			this.guesses[this.currentGuess] = guess;
-			this.clue[this.currentGuess] = clue;
-			this.currentGuess++;
+		this.guesses[this.currentGuess] = guess;
+		this.clue[this.currentGuess] = clue;
+		this.currentGuess++;
 	}
 
+	/**
+	 * Returns a textual representation of the board's state.
+	 * 
+	 * @return
+	 *   The textual representation of the board's state.
+	 */
 	public String toString()
 	{
-// dá uma representação textual do estado do tabuleiro como se ilustra abaixo:
 		String result = "";
 		for (int i = 0; i < this.currentGuess; i++)
 		{
@@ -64,23 +101,3 @@ public class Board
 		return result;
 	}
 }
-
-/*
- 	*
-* Board. Os objetos deste tipo representam o estado do tabuleiro de um jogo de Ipurdle. A classe deve incluir:
-• public Board(int wordSize, int maxGuesses) que, assumindo que wordSize≥1 e maxGuesses≥1, cria um tabuleiro para o jogo de Ipurdle com os dados fornecidos no estado inicial (vazio)
-• public  int wordLength(),  public  int maxGuesses()  e  public  int guesses()  que  permitem saber o tamanho das palavras que podem ser guardadas no tabuleiro, 
-o número máximo de tentativas e
-quantas já foram realizadas (que variam entre 0 e maxGuesses()), respetivamente
-• public void insertGuessAndClue(String guess, Clue clue) que regista palavra e pista fornecidas,
-assumindo que guess.length()==clue.length()==wordLength() e guesses()< maxGuesses()
-• public String toString() que dá uma representação textual do estado do tabuleiro como se ilustra abaixo:
-
-	+---------------+
-	| WHILE | ____* |
-	+---------------+
-	| FIELD | __o__ |
-	+---------------+
-	| ABOVE | ***** |
-	+---------------+
- */

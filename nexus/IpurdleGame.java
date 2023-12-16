@@ -1,3 +1,9 @@
+/**
+ * Handles the logic of the game. 
+ * @authors
+ *   Name: Omeir Haroon, Student Number: 61810
+ *   Name: Matilde Brandão, Student Number: 61814
+ */
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,28 +20,36 @@ public class IpurdleGame {
     public Board board;
     private boolean over;
     
-    
-public IpurdleGame(int wordSize, int maxGuesses) {
-    this.over = false;
-    this.board = new Board(wordSize, maxGuesses);
-    String file = "Dicionario.txt";
-    try {//o try / catch teve de ser utilizado para usar o Scaner com ficheiro
-        Scanner scanner = new Scanner(new File(file));// tenta abrir o ficheiro, se algo der errado vai ao catch (o ficheiro pode n existir ou n ser possivel abrir etc)
-        List<String> dictionaryList = new ArrayList<>();//e criada uma lista de strings em vez de um array de strings porque nao sabemos o tamanho do ficheiro
-        while (scanner.hasNextLine()) {
-            dictionaryList.add(scanner.nextLine());// vai colocar cada linha do ficheiro na lista de strings, no nosso caso cada linha representa uma palavra
+    /**
+ * Constructs a new IpurdleGame with the specified word size and maximum number of guesses.
+ * It initializes the game board and loads the dictionary from a text file. 
+ *
+ * @param wordSize The size of the words for the game.
+ * @param maxGuesses The maximum number of guesses allowed in the game.
+ * @requires {@code wordSize > 0} and {@code maxGuesses > 0}.
+ * @ensures A new game is initialized with a board of the specified word size and maximum number of guesses. The dictionary is loaded from a text file and filtered to only include words of the specified size. An array to keep track of valid words is initialized.
+ */
+    public IpurdleGame(int wordSize, int maxGuesses) {
+        this.over = false;
+        this.board = new Board(wordSize, maxGuesses);
+        String file = "Dicionario.txt";
+        try {//o try / catch teve de ser utilizado para usar o Scaner com ficheiro
+            Scanner scanner = new Scanner(new File(file));// tenta abrir o ficheiro, se algo der errado vai ao catch (o ficheiro pode n existir ou n ser possivel abrir etc)
+            List<String> dictionaryList = new ArrayList<>();//e criada uma lista de strings em vez de um array de strings porque nao sabemos o tamanho do ficheiro
+            while (scanner.hasNextLine()) {
+                dictionaryList.add(scanner.nextLine());// vai colocar cada linha do ficheiro na lista de strings, no nosso caso cada linha representa uma palavra
+            }
+            scanner.close();
+            Dictionary = dictionaryList.toArray(new String[0]);// passar a lista com as palavras para um array de strings
+        } catch (FileNotFoundException e) {
+            System.err.println("File " + file + " has not been found or could not be opened");
         }
-        scanner.close();
-        Dictionary = dictionaryList.toArray(new String[0]);// passar a lista com as palavras para um array de strings
-    } catch (FileNotFoundException e) {
-        System.err.println("File " + file + " has not been found or could not be opened");
+        sizedDictionaryStrings = Arrays.stream(Dictionary)
+                .filter(word -> word.length() == this.board.wordLength())
+                .toArray(String[]::new);// igual ao de cima mas agora em vez de contar coloca num array de strings
+        validWords = new boolean[sizedDictionaryStrings.length];
+        Arrays.fill(validWords, true);
     }
-    sizedDictionaryStrings = Arrays.stream(Dictionary)
-            .filter(word -> word.length() == this.board.wordLength())
-            .toArray(String[]::new);// igual ao de cima mas agora em vez de contar coloca num array de strings
-    validWords = new boolean[sizedDictionaryStrings.length];
-    Arrays.fill(validWords, true);
-}
     /**
      * 
      * @return tamanho da palavra
@@ -62,9 +76,9 @@ public IpurdleGame(int wordSize, int maxGuesses) {
      * and if the guess is in the array of the dictionary of possible words
      * @param guess
      * @return if the guess is valid or not
-     * @requires
+     * @requires {@code guess != NULL}
+        
      */
-
 	public boolean isValid(String guess)
 	{
 
@@ -76,9 +90,7 @@ public IpurdleGame(int wordSize, int maxGuesses) {
 		return false;
 	}
     /**
-     * Checks to see if the player has reached the maximum number
-     * of tries or if the player guessed the right word to see  
-     * if the game is over or not
+     * Checks to see if the game is over 
      * @return if the game is over or not
      * @requires
      */
@@ -146,12 +158,14 @@ public IpurdleGame(int wordSize, int maxGuesses) {
 		return clue;
 	}
 
-    /**
-     * Checks what guess fits the largest number of words 
-     * @param guess
-     * @return guess 
-     * @requires isValid(guess) and !isOver
-     */
+/**
+ * Executes a guessing round in the game.
+ *
+ * @param guess The player's guessed word.
+ * @requires {@code !isOver} and {@code isValid(guess)}.
+ * @ensures The best matching clue for the guess is found and added to the game board. If the game reaches its end conditions, it is marked as over.
+ * @return The best matching clue for the guess.
+ */
     public Clue playGuess(String guess) {
         int size = this.board.wordLength();
         Clue bestClue = new Clue ((int)Math.pow(3, size),size);
@@ -160,7 +174,7 @@ public IpurdleGame(int wordSize, int maxGuesses) {
         int numeroPalavras;
 
         for(int i = 0; i < sizedDictionaryStrings.length; i++){
-            if(validWords[i] &&  sizedDictionaryStrings[i] != guess && sizedDictionaryStrings[i] != null){
+            if(validWords[i] && guess.length() == sizedDictionaryStrings[i].length() && sizedDictionaryStrings[i] != guess && sizedDictionaryStrings[i] != null){
                 clue = clueForGuessAndWord(guess, sizedDictionaryStrings[i]);
                 numeroPalavras = countValidWords(clue, guess, i, bestClue);
                 int orderNumberClue = clue.orderNumber();
@@ -179,6 +193,16 @@ public IpurdleGame(int wordSize, int maxGuesses) {
         return bestClue;
     }
     
+    /**
+     * Counts the number of valid words in the dictionary based on the given clue and guess.
+     * If the clue is not the best clue, it marks the current word as invalid.
+     *
+     * @param clue The clue used to validate words.
+     * @param guess The guessed word.
+     * @param index The index of the current word.
+     * @param bestClue The best clue found so far.
+     * @return The number of valid words.
+     */
     private int countValidWords(Clue clue, String guess, int index, Clue bestClue) {
         int numeroPalavras = 0;
         for (int i = 0; i < sizedDictionaryStrings.length; i++) {

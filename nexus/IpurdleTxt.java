@@ -1,5 +1,19 @@
+/**
+ * Handles the interaction with the user and the representation of the game state.
+ * 
+ * @authors
+ *   Name: Omeir Haroon, Student Number: 61810
+ *   Name: Matilde Brandão, Student Number: 61814
+ */
+
 import java.util.Scanner;
 public class IpurdleTxt {
+	/**
+	 * 
+	 * @param args
+	 * @ensures a new game is initialized with a board of the specified word size and maximum number of guesses. The dictionary is loaded from a text file and filtered to only include words of the specified size. An array to keep track of valid words is initialized.
+	 * @requires {@code wordSize > 0} and {@code maxGuesses > 0}. 
+	 */
 	public static void main(String[] args)
 	{
 		int wordsize = 5;
