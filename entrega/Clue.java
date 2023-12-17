@@ -1,9 +1,8 @@
 /**
  * The Clue class represents a clue in a word puzzle game.
  * 
- * @authors
- *   Name: Omeir Haroon, Student Number: 61810
- *   Name: Matilde Brandão, Student Number: 61814
+ * @author Name: Omeir Haroon, Student Number: 61810
+ * @author Name: Matilde Brandão, Student Number: 61814
  */
 
 /**

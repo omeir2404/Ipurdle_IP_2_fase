@@ -20,13 +20,10 @@ all:
 
 run: all
 	@java IpurdleTxt
-	
-
-copy:
-		cp ./*.java ../entrega
 
 test: all
 	javac IpurdleTest.java
+	@echo "$(YELLOW)$ testing${CLR_RMV}of ${RED} Ipurdle Game ${CLR_RMV}..."
 	@java IpurdleTest
 
 clean:
