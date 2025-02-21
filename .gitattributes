@@ -1,0 +1,8 @@
+# Ignore large PHP files in apoio/
+apoio/*.php linguist-vendored
+
+# Ignore binary files
+*.jar linguist-vendored
+*.so linguist-vendored
+*.zip linguist-vendored
+
